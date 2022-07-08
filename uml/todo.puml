@@ -1,0 +1,32 @@
+@startuml todo
+class Todo {
+    -id: number
+    +title: string
+    +description: string
+    +isDone: boolean
+
+    constructor(title)
+    {static} fromJson(object): Todo
+    toJson(): object
+    toggleDone()
+}
+
+class TodosStore {
+    todos: Array<Todo>
+
+    addTodo(title)
+    removeTodo(id)
+    editTodo(id, title, description)
+    toggleDone(id)
+}
+
+class TodoItemVue {}
+class TodoListVue {}
+
+TodosStore o-- Todo
+
+TodoListVue o-- TodoItemVue
+TodoListVue --> TodosStore
+
+TodoItemVue --> Todo
+@enduml
