@@ -1,11 +1,9 @@
 export default class Todo {
-    constructor(title, description) {
-        if (typeof title !== 'string'
-            || typeof description !== 'string')
+    constructor(content) {
+        if (typeof content !== 'object')
             throw new Error('wrong arguments');
         this._id = this._generateID();
-        this.title = title;
-        this.description = description;
+        this.content = content;
         this.isDone = false;
     }
 
@@ -22,20 +20,18 @@ export default class Todo {
     toJson() {
         return {
             id: this.id,
-            title: this.title,
-            description: this.description,
+            content: this.content,
             isDone: this.isDone,
         };
     }
 
     static fromJson(json) {
         if (typeof (json.id) !== 'number'
-            || typeof (json.title) !== 'string'
-            || typeof (json.description) !== 'string'
+            || typeof (json.content) !== 'object'
             || typeof (json.isDone) !== 'boolean')
             throw new Error('wrong type');
 
-        const todo = new Todo(json.title, json.description);
+        const todo = new Todo(json.content);
         todo._setID(json.id);
         todo.isDone = json.isDone;
         return todo;
